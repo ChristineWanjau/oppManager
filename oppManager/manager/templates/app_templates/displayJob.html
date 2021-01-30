@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div style="width:100%;height:100%;padding:20px;">
+     <!-- Basic Card Example -->
+     <div class="card shadow mb-4" style="width:65%;margin-right:30px;float:left;">
+      {% for job in jobdetails %}
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">{{ job.job_name}} <span style="float:right;">{{ job.post_date }}</span></h6>
+      </div>
+      
+        <h6 class="m-0 font-weight-bold text-primary" style="padding-left:20px;padding-top: 10px;">{{ job.company }}</h6>
+       
+      <div class="card-body" style="flex:60%;">
+         <div class="description">
+          <h6 class="m-0 font-weight-bold text-primary">Description</h6>
+          {{ job.description }}
+        </div>
+        <div class="requirements">
+          <h6 class="m-0 font-weight-bold text-primary">Requirements</h6>
+          {{ job.requirements }}
+        </div>
+        <div>
+          <button>Apply</button>
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+
+     <!-- Basic Card Example -->
+     <div class="card shadow mb-4" style="height:auto;width:30%;float:left;">
+       
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Similar jobs</h6>
+      </div>
+      {% for similar in similarjobs %}
+      <a href="{% url 'displayjob' similar.id %}">
+            <div class="similar" style="display:flex;margin:20px;">
+                    <div class="joblogo" style="flex:20%">
+                            <img src="{% static 'img/jobicon.png' %}" width="40px">
+                          </div>
+                          <div class="companydetails" style="flex:80%">
+                              <div class="h6 mb-0 text-gray-900">
+                            {{ similar.job_name}}
+                            </div>
+                            <div class="companyaddress">
+                                {{ similar.company }}
+                            </div>
+                          </div>  
+                      </div>
+                     </a>
+                     {% endfor %}
+{% endblock %}
+

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Search for New Opportunities</h1>
+</div>
+
+<div class="row">
+
+  <!-- Area Chart -->
+  <div class="col-xl-8 col-lg-7">
+      <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div
+              class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Jobs Available</h6>
+               
+          </div>
+          <!-- Card Body -->
+          <div class="card-body" style="overflow-x:auto; display:flex">
+              {% if jobs %}
+                 {% for job in jobs %}
+                 
+                  <div class="col-xl-5 col-md-6 mb-6" style="height:300px; flex:0 0 35%;">
+                    <div class="card mb-4" style="height:100%;" >
+                        <a href="{% url 'displayjob' job.id %}"><div class="card-header">
+                             {{ job.job_name }}
+                            <h6 class="m-0 font-weight-bold text-primary">{{ job.company }}</h6>
+                        </div></a>
+                        
+                        <div class="card-body" style="margin-left:10px;">
+                        <div style="white-space: nowrap; 
+                        overflow: hidden;
+                        text-overflow: ellipsis;">
+                            {{ job.description }}
+                        </div>
+                        
+                            <br>
+                            <img src="{%static 'img/jobicon.png' %}" style="width:70px"/>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" style="padding-left:20px;">${{ job.amount }}</div>
+                        <h6 class="m-0  text-primary"style="padding-left:20px;">{{ job.post_date }}</h6>
+                    </div>
+                </div>
+               
+                 {% endfor %}
+                 {% else %}
+                 <p>No jobs match your search</p>
+                 {% endif %}
+          
+      </div>
+  </div>
+  </div>
+
+
+              <!-- Pie Chart -->
+              <div class="col-xl-4 col-lg-5">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Top Hiring Companies</h6>
+            
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body" >
+                      {% for company in companies %}
+                      <a href="{% url 'displaycompany' company.id %}">
+                      <div class="company" style="display:flex;margin-bottom:20px;">
+                          <div class="companylogo" style="flex:20%">
+                            <img src="{% static 'img/companyicon.png' %}" width="60px">
+                          </div>
+                          <div class="companydetails" style="flex:80%">
+                              <div class="h5 mb-0 text-gray-900">
+                            {{company.company_name}}
+                            </div>
+                            <div class="companyaddress">
+                                {{ company.address }}
+                            </div>
+                          </div>  
+                      </div>
+                     </a>
+                    {% endfor %}
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div style="width:100%;height:100%;padding:20px;">
+     <!-- Basic Card Example -->
+     <div class="card shadow mb-4" style="width:65%;margin-right:30px;float:left;">
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Company Details</h6>
+      </div>
+      {% for company in companydetails %}
+      <div class="card-body">
+        <div class="description">
+          <h6 class="m-0 font-weight-bold text-primary">{{ company.company_name }}</h6>
+        </div>
+        <br>
+        <div class="requirements">
+          <h6 class="m-0 font-weight-bold text-primary">Located in</h6>
+          {{ company.address }}
+        </div>
+        <br>
+
+        <div class="requirements">
+          <h6 class="m-0 font-weight-bold text-primary">Description</h6>
+          {{ company.description }}
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+
+     <!-- Basic Card Example -->
+     <div class="card shadow mb-4" style="height:auto;width:30%;float:left;">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Company Careers</h6>
+    </div>
+       {% if companyjobs %}
+       {% for job in companyjobs %}
+       <a href="{% url 'displayjob' job.id %}">
+        <div class="similar" style="display:flex;margin:20px;">
+              <div class="joblogo" style="flex:20%">
+                    <img src="{% static 'img/jobicon.png' %}" width="40px">
+                    </div>
+                      <div class="jobdetails" style="flex:80%">
+                          <div class="h6 mb-0 text-gray-900">
+                        {{ job.job_name}}
+                        </div>
+                        <div class="companyaddress">
+                            {{ job.company }}
+                        </div>
+                      </div>  
+                  </div>
+                 </a>
+      {% endfor %}
+      {% else %}
+      <p style="margin:20px;">No careers available</p>
+      {% endif %}
+  </div>
+</div>
+{% endblock %}
+
