@@ -81,14 +81,19 @@ WSGI_APPLICATION = 'oppManager.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'oppomanager',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '',
+        'default': {
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        
+        'NAME': 'oppmanager',
+
+        'USER': 'myuser',
+
+        'PASSWORD': 'mypass',
+
+        'HOST': 'localhost',
+
         'PORT': '',
-    }
+}
 }
 
 
@@ -173,6 +178,9 @@ STATICFILES_DIRS = (
 
 #  Add configuration for static files storage using whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
 
 import dj_database_url 
 prod_db  =  dj_database_url.config(conn_max_age=500)
